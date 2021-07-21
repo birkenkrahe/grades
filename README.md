@@ -1,2 +1,2 @@
-# grades
-Grades
+# Noten
+Nichts sonst.
