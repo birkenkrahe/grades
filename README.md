@@ -1,2 +1,2 @@
-# Noten
-Nichts sonst.
+# Grades analysis
+R demonstration using real student data.
