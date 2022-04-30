@@ -1,1 +1,9 @@
-Grades HWR 2020-21 and Lyon 2022-
+* Grades Lyon College
+
+  * Grades HWR 2020-21 and Lyon 2022-
+    
+* Notenanalyse - HWR Kurse SS20-SS21
+
+  * Demonstration einiger analytischer Möglichkeiten der statistischen
+    Programmiersprache R.
+
