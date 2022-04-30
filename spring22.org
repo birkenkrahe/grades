@@ -83,21 +83,6 @@
      #+RESULTS: os_test_density
      [[file:./img/osTestDensity.png]]
 
-**** Histograms
-
-     * Stacked histograms
-
-       - need to make bars transparent...
-
-       #+begin_src R :file ./img/oshist1.png :exports both :session :results output graphics file
-         hist(os_results_1, col="lightblue")
-         hist(os_results_2, col="aquamarine", add=TRUE)
-         hist(os_results_3, col="lightgreen", add=TRUE)
-       #+end_src
-
-       #+RESULTS:
-       [[file:./img/oshist1.png]]
-
 ** Introduction to advanced data science DSC 205 (CSC 482)
 ** Introduction to programming CSC 100
 ** Database Theory and applications CSC 330
