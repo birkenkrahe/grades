@@ -48,41 +48,53 @@
     #+end_example
 
 *** Plotting the data
+**** Density distributions
+     * compute the averages for each results vector
+     * determine min and max values for the plotting window
+     * plot densities and averages and attach text labels
 
-    * compute the averages for each results vector
-    * determine min and max values for the plotting window
-    * plot densities and averages and attach text labels
+     #+name: os_test_density
+     #+begin_src R :file ./img/osTestDensity.png :session *R* :results output graphics file :exports both
+       os_avg_1 <- mean(os_results_1); os_density_1 <- density(os_results_1)
+       os_avg_2 <- mean(os_results_2); os_density_2 <- density(os_results_2)
+       os_avg_3 <- mean(os_results_3); os_density_3 <- density(os_results_3)
 
-    #+name: os_test_density
-    #+begin_src R :file ./img/osTestDensity.png :session *R* :results output graphics file :exports both
-      os_avg_1 <- mean(os_results_1); os_density_1 <- density(os_results_1)
-      os_avg_2 <- mean(os_results_2); os_density_2 <- density(os_results_2)
-      os_avg_3 <- mean(os_results_3); os_density_3 <- density(os_results_3)
+       ymin <- min(c(os_density_1$y,os_density_2$y,os_density_3$y))
+       ymax <- max(c(os_density_1$y,os_density_2$y,os_density_3$y))
+       xmin <- min(c(os_density_1$x,os_density_2$x,os_density_3$x))
+       xmax <- max(c(os_density_1$x,os_density_2$x,os_density_3$x))
 
-      ymin <- min(c(os_density_1$y,os_density_2$y,os_density_3$y))
-      ymax <- max(c(os_density_1$y,os_density_2$y,os_density_3$y))
-      xmin <- min(c(os_density_1$x,os_density_2$x,os_density_3$x))
-      xmax <- max(c(os_density_1$x,os_density_2$x,os_density_3$x))
+       plot(os_density_1, col="blue",
+            main="Test Results Operating Systems CSC 420 Spring 2022",
+            ylim=c(ymin,ymax), xlim=c(xmin,xmax))
+       abline(v=os_avg_1, col="blue", lty=3)
+       text(x=11, y=0.15, col="blue", label=c("Test 1"));
 
-      plot(os_density_1, col="blue",
-           main="Test Results Operating Systems CSC 420 Spring 2022",
-           ylim=c(ymin,ymax), xlim=c(xmin,xmax))
-      abline(v=os_avg_1, col="blue", lty=3)
-      text(x=11, y=0.15, col="blue", label=c("Test 1"));
+       lines(os_density_2, col="red")
+       abline(v=os_avg_2, col="red", lty=3)
+       text(x=16, y=0.165, col="red", label=c("Test 2"));
 
-      lines(os_density_2, col="red")
-      abline(v=os_avg_2, col="red", lty=3)
-      text(x=16, y=0.165, col="red", label=c("Test 2"));
+       lines(os_density_3, col="darkgreen")
+       abline(v=os_avg_3, col="darkgreen", lty=3)
+       text(x=19, y=0.15, col="darkgreen", label=c("Test 3"));
 
-      lines(os_density_3, col="darkgreen")
-      abline(v=os_avg_3, col="darkgreen", lty=3)
-      text(x=19, y=0.15, col="darkgreen", label=c("Test 3"));
+     #+end_src
 
-    #+end_src
+     #+RESULTS: os_test_density
+     [[file:./img/osTestDensity.png]]
 
-    #+RESULTS: os_test_density
-    [[file:./img/osTestDensity.png]]
+**** Histograms
 
+     * Stacked histograms
+
+       #+begin_src R :file ./img/oshist1.png :exports both :session :results output graphics file
+         hist(os_results_1, col="lightblue")
+         hist(os_results_2, col="aquamarine", add=TRUE)
+         hist(os_results_3, col="lightgreen", add=TRUE)
+       #+end_src
+
+       #+RESULTS:
+       [[file:./img/oshist1.png]]
 
 ** Introduction to advanced data science DSC 205 (CSC 482)
 
@@ -125,42 +137,68 @@
     :  [8] 19.999500  9.888642  9.777533 19.999500 14.444083 12.221917
 
 *** Plotting the data
+**** Density distributions
 
-    * compute the averages for each results vector
-    * determine min and max values for the plotting window
-    * plot densities and averages and attach text labels
+     * compute the averages for each results vector
+     * determine min and max values for the plotting window
+     * plot densities and averages and attach text labels
 
-    #+name: ds_test_density
-    #+begin_src R :file ./img/dsTestDensity.png :session *R* :results output graphics file :exports both
-      ds_avg_1 <- mean(ds_results_1); ds_density_1 <- density(ds_results_1)
-      ds_avg_2 <- mean(ds_results_2); ds_density_2 <- density(ds_results_2)
-      ds_avg_3 <- mean(ds_results_3); ds_density_3 <- density(ds_results_3)
+     #+name: ds_test_density
+     #+begin_src R :file ./img/dsTestDensity.png :session *R* :results output graphics file :exports both
+       ds_avg_1 <- mean(ds_results_1); ds_density_1 <- density(ds_results_1)
+       ds_avg_2 <- mean(ds_results_2); ds_density_2 <- density(ds_results_2)
+       ds_avg_3 <- mean(ds_results_3); ds_density_3 <- density(ds_results_3)
 
-      ymin <- min(c(ds_density_1$y,ds_density_2$y,ds_density_3$y))
-      ymax <- max(c(ds_density_1$y,ds_density_2$y,ds_density_3$y))
-      xmin <- min(c(ds_density_1$x,ds_density_2$x,ds_density_3$x))
-      xmax <- max(c(ds_density_1$x,ds_density_2$x,ds_density_3$x))
+       ymin <- min(c(ds_density_1$y,ds_density_2$y,ds_density_3$y))
+       ymax <- max(c(ds_density_1$y,ds_density_2$y,ds_density_3$y))
+       xmin <- min(c(ds_density_1$x,ds_density_2$x,ds_density_3$x))
+       xmax <- max(c(ds_density_1$x,ds_density_2$x,ds_density_3$x))
 
-      plot(ds_density_1, col="blue",
+       plot(ds_density_1, col="blue",
             main="Test Results Introduction to advanced\
-       data science DSC 205/CSC 482 Spring 2022",
-       ylim=c(ymin,ymax), xlim=c(xmin,xmax))
-      abline(v=ds_avg_1, col="blue", lty=3)
-      text(x=12, y=0.15, col="blue", label=c("Test 1"));
+        data science DSC 205/CSC 482 Spring 2022",
+        ylim=c(ymin,ymax), xlim=c(xmin,xmax))
+       abline(v=ds_avg_1, col="blue", lty=3)
+       text(x=12, y=0.15, col="blue", label=c("Test 1"));
 
-      lines(ds_density_2, col="red")
-      abline(v=ds_avg_2, col="red", lty=3)
-      text(x=19, y=0.17, col="red", label=c("Test 2"));
+       lines(ds_density_2, col="red")
+       abline(v=ds_avg_2, col="red", lty=3)
+       text(x=19, y=0.17, col="red", label=c("Test 2"));
 
-      lines(ds_density_3, col="darkgreen")
-      abline(v=ds_avg_3, col="darkgreen", lty=3)
-      text(x=22, y=0.06, col="darkgreen", label=c("Test 3"));
+       lines(ds_density_3, col="darkgreen")
+       abline(v=ds_avg_3, col="darkgreen", lty=3)
+       text(x=22, y=0.06, col="darkgreen", label=c("Test 3"));
 
-    #+end_src
+     #+end_src
 
-    #+RESULTS: ds_test_density
-    [[file:./img/dsTestDensity.png]]
+     #+RESULTS: ds_test_density
+     [[file:./img/dsTestDensity.png]]
 
+**** Histograms
+
+     * Stacked histograms
+
+       - Need to make colors transparent. [[https://www.dataanalytics.org.uk/make-transparent-colors-in-r/][See here how.]]
+
+       #+begin_src R :file ./img/dshist1.png :exports both :session :results output graphics file
+         hist(ds_results_1, col="lightblue",xlim=c(5,20),ylim=c(0,5)x)
+         hist(ds_results_2, col="aquamarine", add=TRUE)
+         hist(ds_results_3, col="lightgreen", add=TRUE)
+       #+end_src
+
+       #+RESULTS:
+       [[file:./img/dshist1.png]]
+
+     * ~ggplot2~ version
+
+       #+begin_src R :file ./img/dshist2.png :exports both :session :results output graphics file
+	 gg <- data.frame("t1"=ds_results_1,"t2"=ds_results_2,"t3"=ds_results_3)
+	 library(ggplot2)
+	 ggplot(data=gg, aes(x=t1)) + geom_histogram()
+       #+end_src
+
+       #+RESULTS:
+       [[file:./img/dshist2.png]]
 
 ** Introduction to programming CSC 100
 
