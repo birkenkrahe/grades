@@ -169,18 +169,6 @@
     #+RESULTS: ds_test_density
     [[file:./img/dsTestDensity.png]]
 
-    #+begin_src R :exports both :session :results output
-      length(ds_results_1)
-      length(ds_results_2)
-      length(ds_results_3)
-    #+end_src
-
-    #+RESULTS:
-    : [1] 13
-    : [1] 13
-    : [1] 13
-
-
 
 ** Introduction to programming CSC 100
 
