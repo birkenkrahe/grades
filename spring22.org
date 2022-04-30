@@ -65,8 +65,8 @@
       xmax <- max(c(os_density_1$x,os_density_2$x,os_density_3$x))
 
       plot(os_density_1, col="blue",
-	   main="Test Results Operating Systems CSC 420 Spring 2022",
-	   ylim=c(ymin,ymax))
+           main="Test Results Operating Systems CSC 420 Spring 2022",
+           ylim=c(ymin,ymax), xlim=c(xmin,xmax))
       abline(v=os_avg_1, col="blue", lty=3)
       text(x=11, y=0.15, col="blue", label=c("Test 1"));
 
@@ -83,26 +83,6 @@
     #+RESULTS: os_test_density
     [[file:./img/osTestDensity.png]]
 
-    #+begin_src R :exports both :session :results output
-      length(os_results_1)
-      length(os_results_2)
-      length(os_results_3)
-
-      (ymin <- min(c(os_density_1$y,os_density_2$y,os_density_3$y)))
-      (ymax <- max(c(os_density_1$y,os_density_2$y,os_density_3$y)))
-      (xmin <- min(c(os_density_1$x,os_density_2$x,os_density_3$x)))
-      (xmax <- max(c(os_density_1$x,os_density_2$x,os_density_3$x)))
-    #+end_src
-
-    #+RESULTS:
-    : [1] 22
-    : [1] 22
-    : [1] 21
-    : [1] 0.0001759744
-    : [1] 0.1689603
-    : [1] 5.028191
-    : [1] 23.98399
-
 
 ** Introduction to advanced data science DSC 205 (CSC 482)
 
@@ -115,9 +95,11 @@
 
     #+begin_src R :exports both :session :results output
       ds_dir <- c("w:/My Drive/spring22/ds205/quizzes/stats/")
+
       ds_test_1="Submission-Summary-Test-1---Introduction-to-Advanced-Data-Science-2022-03-15-151540.csv"
       ds_test_2="Submission-Summary-Test-2-Introduction-to-advanced-data-science-2022-03-15-151344.csv"
       ds_test_3="Submission-Summary-Test-3-Introduction-to-advanced-data-science-2022-04-30-125315.csv"
+
       file_1 <- paste(ds_dir,ds_test_1,sep="")
       file_2 <- paste(ds_dir,ds_test_2,sep="")
       file_3 <- paste(ds_dir,ds_test_3,sep="")
@@ -130,7 +112,7 @@
       ds_results_1
       ds_results_2 <- na.omit(ds_test_2$Submission.Score)
       ds_results_2
-      ds_results_3 <- na.omit(ds_test_3$Submission.Score)
+      ds_results_3 <- na.omit(ds_test_3$Submission.Score) * 1.3333
       ds_results_3
     #+end_src
 
@@ -139,10 +121,14 @@
     : [13] 13.67
     :  [1] 17.00000 16.00000 17.00000 16.16667 13.16667 19.66667 15.66667 18.66667
     :  [9] 13.16667 16.66667 19.16667 16.33333 18.00000
-    :  [1] 12.000000  5.666667 11.416667 11.333333 12.750000 14.000000 14.000000
-    :  [8] 15.000000  7.416667  7.333333 15.000000 10.833333  9.166667
+    :  [1] 15.999600  7.555367 15.221842 15.110733 16.999575 18.666200 18.666200
+    :  [8] 19.999500  9.888642  9.777533 19.999500 14.444083 12.221917
 
 *** Plotting the data
+
+    * compute the averages for each results vector
+    * determine min and max values for the plotting window
+    * plot densities and averages and attach text labels
 
     #+name: ds_test_density
     #+begin_src R :file ./img/dsTestDensity.png :session *R* :results output graphics file :exports both
@@ -150,19 +136,25 @@
       ds_avg_2 <- mean(ds_results_2); ds_density_2 <- density(ds_results_2)
       ds_avg_3 <- mean(ds_results_3); ds_density_3 <- density(ds_results_3)
 
-      plot(ds_density_2, col="red",
-           main="Test Results Introduction to advanced\
-      data science DSC 205/CSC 482 Spring 2022")
-      abline(v=ds_avg_2, col="red", lty=3)
-      text(x=18.5, y=0.17, col="red", label=c("Test 2"));
+      ymin <- min(c(ds_density_1$y,ds_density_2$y,ds_density_3$y))
+      ymax <- max(c(ds_density_1$y,ds_density_2$y,ds_density_3$y))
+      xmin <- min(c(ds_density_1$x,ds_density_2$x,ds_density_3$x))
+      xmax <- max(c(ds_density_1$x,ds_density_2$x,ds_density_3$x))
 
-      lines(ds_density_1, col="blue")
+      plot(ds_density_1, col="blue",
+            main="Test Results Introduction to advanced\
+       data science DSC 205/CSC 482 Spring 2022",
+       ylim=c(ymin,ymax), xlim=c(xmin,xmax))
       abline(v=ds_avg_1, col="blue", lty=3)
-      text(x=13, y=0.15, col="blue", label=c("Test 1"));
+      text(x=12, y=0.15, col="blue", label=c("Test 1"));
+
+      lines(ds_density_2, col="red")
+      abline(v=ds_avg_2, col="red", lty=3)
+      text(x=19, y=0.17, col="red", label=c("Test 2"));
 
       lines(ds_density_3, col="darkgreen")
       abline(v=ds_avg_3, col="darkgreen", lty=3)
-      text(x=15.7, y=0.17, col="darkgreen", label=c("Test 3"));
+      text(x=22, y=0.06, col="darkgreen", label=c("Test 3"));
 
     #+end_src
 
