@@ -1,6 +1,5 @@
-* Test plots
+* Test results - Spring 2022
 ** Operating systems CSC 420
-
 *** Getting the data
 
     Save test results to data frames.
@@ -9,6 +8,7 @@
     * import with ~read.csv~, ~header=TRUE~ and ~stringsAsFactors=TRUE~.
     * correct test 3 data (15 available points instead of 20)
 
+    #+name: os_data
     #+begin_src R :exports both :session :results output
       os_dir <- c("w:/My Drive/spring22/os420/quizzes/stats/")
 
@@ -32,7 +32,7 @@
       os_results_3
     #+end_src
 
-    #+RESULTS:
+    #+RESULTS: os_data
     #+begin_example
      [1] 11.883333 13.916667 12.433333 13.600000  9.933333  8.666667 14.866667
      [8] 13.016667 10.583333 17.083333  9.716667 12.766667 15.416667 16.500000
@@ -48,44 +48,43 @@
     #+end_example
 
 *** Plotting the data
-**** Density distributions
-     * compute the averages for each results vector
-     * determine min and max values for the plotting window
-     * plot densities and averages and attach text labels
 
-     #+name: os_test_density
-     #+begin_src R :file ./img/osTestDensity.png :session *R* :results output graphics file :exports both
-       os_avg_1 <- mean(os_results_1); os_density_1 <- density(os_results_1)
-       os_avg_2 <- mean(os_results_2); os_density_2 <- density(os_results_2)
-       os_avg_3 <- mean(os_results_3); os_density_3 <- density(os_results_3)
+    Density distribution plotting:
+    * compute the averages for each results vector
+    * determine min and max values for the plotting window
+    * plot densities and averages and attach text labels
 
-       ymin <- min(c(os_density_1$y,os_density_2$y,os_density_3$y))
-       ymax <- max(c(os_density_1$y,os_density_2$y,os_density_3$y))
-       xmin <- min(c(os_density_1$x,os_density_2$x,os_density_3$x))
-       xmax <- max(c(os_density_1$x,os_density_2$x,os_density_3$x))
+      #+name: os_density
+      #+begin_src R :file ./img/osTestDensity.png :session *R* :results output graphics file :exports both
+        os_avg_1 <- mean(os_results_1); os_density_1 <- density(os_results_1)
+        os_avg_2 <- mean(os_results_2); os_density_2 <- density(os_results_2)
+        os_avg_3 <- mean(os_results_3); os_density_3 <- density(os_results_3)
 
-       plot(os_density_1, col="blue",
-            main="Test Results Operating Systems CSC 420 Spring 2022",
-            ylim=c(ymin,ymax), xlim=c(xmin,xmax))
-       abline(v=os_avg_1, col="blue", lty=3)
-       text(x=11, y=0.15, col="blue", label=c("Test 1"));
+        ymin <- min(c(os_density_1$y,os_density_2$y,os_density_3$y))
+        ymax <- max(c(os_density_1$y,os_density_2$y,os_density_3$y))
+        xmin <- min(c(os_density_1$x,os_density_2$x,os_density_3$x))
+        xmax <- max(c(os_density_1$x,os_density_2$x,os_density_3$x))
 
-       lines(os_density_2, col="red")
-       abline(v=os_avg_2, col="red", lty=3)
-       text(x=16, y=0.165, col="red", label=c("Test 2"));
+        plot(os_density_1, col="blue",
+             main="Test Results Operating Systems CSC 420 Spring 2022",
+             ylim=c(ymin,ymax), xlim=c(xmin,xmax))
+        abline(v=os_avg_1, col="blue", lty=3)
+        text(x=11, y=0.15, col="blue", label=c("Test 1"));
 
-       lines(os_density_3, col="darkgreen")
-       abline(v=os_avg_3, col="darkgreen", lty=3)
-       text(x=19, y=0.15, col="darkgreen", label=c("Test 3"));
+        lines(os_density_2, col="red")
+        abline(v=os_avg_2, col="red", lty=3)
+        text(x=16, y=0.165, col="red", label=c("Test 2"));
 
-     #+end_src
+        lines(os_density_3, col="darkgreen")
+        abline(v=os_avg_3, col="darkgreen", lty=3)
+        text(x=19, y=0.155, col="darkgreen", label=c("Test 3"));
 
-     #+RESULTS: os_test_density
-     [[file:./img/osTestDensity.png]]
+      #+end_src
 
+      #+RESULTS: os_density
+      [[file:./img/osTestDensity.png]]
 
 ** Introduction to advanced data science DSC 205 (CSC 482)
-
 *** Getting the data
 
     Save test results to data frames.
@@ -93,10 +92,11 @@
     * ~paste~ and save as ~file~ string for ~read.csv~
     * import with ~read.csv~, ~header=TRUE~ and ~stringsAsFactors=TRUE~.
 
+    #+name: ds_data
     #+begin_src R :exports both :session :results output
       ds_dir <- c("w:/My Drive/spring22/ds205/quizzes/stats/")
 
-      ds_test_1="Submission-Summary-Test-1---Introduction-to-Advanced-Data-Science-2022-03-15-151540.csv"
+      ds_test_1="Submission-Summary-Test-1-Introduction-to-Advanced-Data-Science-2022-02-18-210842.csv"
       ds_test_2="Submission-Summary-Test-2-Introduction-to-advanced-data-science-2022-03-15-151344.csv"
       ds_test_3="Submission-Summary-Test-3-Introduction-to-advanced-data-science-2022-04-30-125315.csv"
 
@@ -116,8 +116,8 @@
       ds_results_3
     #+end_src
 
-    #+RESULTS:
-    :  [1] 15.00 14.00 17.41 11.08 13.38 16.75  8.33 17.17 14.16 11.91 16.16 14.80
+    #+RESULTS: ds_data
+    :  [1] 15.00 14.00 16.41 11.08 13.38 16.75  8.33 17.17 14.16 11.91 16.16 14.80
     : [13] 13.67
     :  [1] 17.00000 16.00000 17.00000 16.16667 13.16667 19.66667 15.66667 18.66667
     :  [9] 13.16667 16.66667 19.16667 16.33333 18.00000
@@ -126,42 +126,127 @@
 
 *** Plotting the data
 
-**** Density distributions
+    Density distribution plotting:
+    * compute the averages for each results vector
+    * determine min and max values for the plotting window
+    * plot densities and averages and attach text labels
 
-     * compute the averages for each results vector
-     * determine min and max values for the plotting window
-     * plot densities and averages and attach text labels
+      #+name: ds_density
+      #+begin_src R :file ./img/dsTestDensity.png :session *R* :results output graphics file :exports both
+        ds_avg_1 <- mean(ds_results_1); ds_density_1 <- density(ds_results_1)
+        ds_avg_2 <- mean(ds_results_2); ds_density_2 <- density(ds_results_2)
+        ds_avg_3 <- mean(ds_results_3); ds_density_3 <- density(ds_results_3)
 
-     #+name: ds_test_density
-     #+begin_src R :file ./img/dsTestDensity.png :session *R* :results output graphics file :exports both
-       ds_avg_1 <- mean(ds_results_1); ds_density_1 <- density(ds_results_1)
-       ds_avg_2 <- mean(ds_results_2); ds_density_2 <- density(ds_results_2)
-       ds_avg_3 <- mean(ds_results_3); ds_density_3 <- density(ds_results_3)
+        ymin <- min(c(ds_density_1$y,ds_density_2$y,ds_density_3$y))
+        ymax <- max(c(ds_density_1$y,ds_density_2$y,ds_density_3$y))
+        xmin <- min(c(ds_density_1$x,ds_density_2$x,ds_density_3$x))
+        xmax <- max(c(ds_density_1$x,ds_density_2$x,ds_density_3$x))
 
-       ymin <- min(c(ds_density_1$y,ds_density_2$y,ds_density_3$y))
-       ymax <- max(c(ds_density_1$y,ds_density_2$y,ds_density_3$y))
-       xmin <- min(c(ds_density_1$x,ds_density_2$x,ds_density_3$x))
-       xmax <- max(c(ds_density_1$x,ds_density_2$x,ds_density_3$x))
+        plot(ds_density_1, col="blue",
+             main="Test Results Introduction to advanced\
+         data science DSC 205/CSC 482 Spring 2022",
+         ylim=c(ymin,ymax), xlim=c(xmin,xmax))
+        abline(v=ds_avg_1, col="blue", lty=3)
+        text(x=12, y=0.15, col="blue", label=c("Test 1"));
 
-       plot(ds_density_1, col="blue",
-            main="Test Results Introduction to advanced\
-        data science DSC 205/CSC 482 Spring 2022",
-        ylim=c(ymin,ymax), xlim=c(xmin,xmax))
-       abline(v=ds_avg_1, col="blue", lty=3)
-       text(x=12, y=0.15, col="blue", label=c("Test 1"));
+        lines(ds_density_2, col="red")
+        abline(v=ds_avg_2, col="red", lty=3)
+        text(x=19, y=0.17, col="red", label=c("Test 2"));
 
-       lines(ds_density_2, col="red")
-       abline(v=ds_avg_2, col="red", lty=3)
-       text(x=19, y=0.17, col="red", label=c("Test 2"));
+        lines(ds_density_3, col="darkgreen")
+        abline(v=ds_avg_3, col="darkgreen", lty=3)
+        text(x=22, y=0.06, col="darkgreen", label=c("Test 3"));
 
-       lines(ds_density_3, col="darkgreen")
-       abline(v=ds_avg_3, col="darkgreen", lty=3)
-       text(x=22, y=0.06, col="darkgreen", label=c("Test 3"));
+      #+end_src
 
-     #+end_src
+      #+RESULTS: ds_density
+      [[file:./img/dsTestDensity.png]]
 
-     #+RESULTS: ds_test_density
-     [[file:./img/dsTestDensity.png]]
+** Database Theory and applications CSC 330
+*** Getting the data
+
+    Save test results to data frames:
+    * Save directory and individual files
+    * ~paste~ and save as ~file~ string for ~read.csv~
+    * import with ~read.csv~, ~header=TRUE~ and ~stringsAsFactors=TRUE~.
+
+    #+name: db_data
+    #+begin_src R :exports both :session :results output
+      db_dir <- c("w:/My Drive/spring22/db330/quizzes/stats/")
+
+      db_test_1="Submission-Summary-Test-1-Database-Theory--Applications-CSC-330-2022-02-11-073239.csv"
+      db_test_2="Submission-Summary-Test-2-Database-Theory--Applications-CSC-330-2022-03-17-152006.csv"
+      db_test_3="Submission-Summary-Test-3-Database-Theory--Applications-CSC-330-2022-04-30-183450.csv"
+
+      file_1 <- paste(db_dir,db_test_1,sep="")
+      file_2 <- paste(db_dir,db_test_2,sep="")
+      file_3 <- paste(db_dir,db_test_3,sep="")
+
+      db_test_1 <- read.csv(file_1, header=TRUE, stringsAsFactors=TRUE)
+      db_test_2 <- read.csv(file_2, header=TRUE, stringsAsFactors=TRUE)
+      db_test_3 <- read.csv(file_3, header=TRUE, stringsAsFactors=TRUE)
+
+      db_results_1 <- na.omit(db_test_1$Submission.Score)
+      db_results_1
+      db_results_2 <- na.omit(db_test_2$Submission.Score)
+      db_results_2
+      db_results_3 <- na.omit(db_test_3$Submission.Score) * 1.3333
+      db_results_3
+    #+end_src
+
+    #+RESULTS: db_data
+    #+begin_example
+     [1] 17.875000 14.800000 15.666667 12.319444  9.541667 16.555556 12.305556
+     [8] 12.777778 14.327778 17.666667 18.000000 16.555556 11.638889 14.555556
+    [15] 15.861111 14.638889 12.955556 13.750000 15.430556 15.577778 16.444444
+    [22] 13.980556 17.555556 14.911111 12.111111 17.000000 16.333333 17.208333
+    attr(,"na.action")
+    [1] 26
+    attr(,"class")
+    [1] "omit"
+     [1] 15.0 19.0 15.0 14.5 17.0 19.0 19.0 16.5 17.0 20.0 15.0 19.0 17.0 19.0 11.0
+    [16] 15.0 17.0 18.0 15.0 17.0 18.0 15.0 17.0 11.5 18.5 18.0 20.0 19.0
+     [1] 19.22174 13.44411 18.44398 17.77733 17.88844 17.22179 19.22174 16.44403
+     [9] 18.22177 19.99950 17.88844 19.99950 19.99950 19.55507 17.66623 17.22179
+    [17] 17.22179 16.55514 13.33300 15.88849 17.99955 18.11066 18.22177 14.55519
+    [25] 19.55507 17.88844 19.33285 18.66620
+    #+end_example
+
+*** Plotting the data
+
+    Density distribution plotting:
+    * compute the averages for each results vector
+    * determine min and max values for the plotting window
+    * plot densities and averages and attach text labels
+
+      #+name: db_density
+      #+begin_src R :file ./img/dbTestDensity.png :session *R* :results output graphics file :exports both
+        db_avg_1 <- mean(db_results_1); db_density_1 <- density(db_results_1)
+        db_avg_2 <- mean(db_results_2); db_density_2 <- density(db_results_2)
+        db_avg_3 <- mean(db_results_3); db_density_3 <- density(db_results_3)
+
+        ymin <- min(c(db_density_1$y,db_density_2$y,db_density_3$y))
+        ymax <- max(c(db_density_1$y,db_density_2$y,db_density_3$y))
+        xmin <- min(c(db_density_1$x,db_density_2$x,db_density_3$x))
+        xmax <- max(c(db_density_1$x,db_density_2$x,db_density_3$x))
+
+        plot(db_density_1, col="blue",
+             main="Test Results Database Theory and\
+         applications CSC 330 Spring 2022",
+         ylim=c(ymin,ymax), xlim=c(xmin,xmax))
+        abline(v=db_avg_1, col="blue", lty=3)
+        text(x=13.5, y=0.15, col="blue", label=c("Test 1"));
+
+        lines(db_density_2, col="red")
+        abline(v=db_avg_2, col="red", lty=3)
+        text(x=13.2, y=0.08, col="red", label=c("Test 2"));
+
+        lines(db_density_3, col="darkgreen")
+        abline(v=db_avg_3, col="darkgreen", lty=3)
+        text(x=20.5, y=0.20, col="darkgreen", label=c("Test 3"));
+      #+end_src
+
+      #+RESULTS: db_density
+      [[file:./img/dbTestDensity.png]]
 
 ** Introduction to programming CSC 100
-** Database Theory and applications CSC 330
