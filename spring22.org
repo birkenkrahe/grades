@@ -304,7 +304,7 @@
     * plot densities and averages and attach text labels
 
       #+name: cc_density
-      #+begin_src R :file ./img/dbTestDensity.png :session *R* :results output graphics file :exports both
+      #+begin_src R :file ./img/ccTestDensity.png :session *R* :results output graphics file :exports both
         cc_avg_1 <- mean(cc_results_1); cc_density_1 <- density(cc_results_1)
         cc_avg_2 <- mean(cc_results_2); cc_density_2 <- density(cc_results_2)
         cc_avg_3 <- mean(cc_results_3); cc_density_3 <- density(cc_results_3)
@@ -331,4 +331,4 @@
       #+end_src
 
       #+RESULTS: cc_density
-      [[file:./img/dbTestDensity.png]]
+      [[file:./img/ccTestDensity.png]]
