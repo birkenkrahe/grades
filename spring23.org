@@ -37,7 +37,7 @@ Density distribution plotting:
 - plot densities and averages and attach text labels
 
   #+name: cc_density
-  #+begin_src R :file ./img/ccTest1DensitySP23.png :results output graphics file :export both
+  #+begin_src R :file ./img/ccTest1DensitySP23.png :results output graphics file :exports both
     cc_avg_1 <- mean(cc_results_1);
     cc_density_1 <- density(cc_results_1)
 
