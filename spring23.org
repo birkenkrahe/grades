@@ -1,5 +1,7 @@
+#+title: Spring 23 grades
 #+property: header-args:R :session *R* :results output :exports both
 #+startup: overview hideblocks indent inlineimages
+#+options: toc:1
 * Introduction to programming CSC 100
 
 - This section contains visualization of test results for the
