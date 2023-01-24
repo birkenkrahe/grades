@@ -1,0 +1,59 @@
+#+property: header-args:R :session *R* :results output :exports both
+#+startup: overview hideblocks indent inlineimages
+** Introduction to programming CSC 100
+*** Getting the data
+
+Save test results to data frames:
+- Save directory and individual files
+- ~paste~ and save as ~file~ string for ~read.csv~
+- import with ~read.csv~, ~header=TRUE~ and ~stringsAsFactors=TRUE~.
+
+  #+name: cc_data
+  #+begin_src R :exports both :session :results output
+    cc_dir <- c("w:/My Drive/spring23/cc/grades/")
+
+    cc_test_1="2023-01-23T2039_Grades-CSC_100.csv"
+
+    file_1 <- paste(cc_dir,cc_test_1,sep="")
+
+    cc_test_1 <- read.csv(file_1, header=TRUE, stringsAsFactors=TRUE)
+
+    cc_results_1 <- na.omit(cc_test_1$"Test.1..6701."[2:15])
+    cc_results_1
+  #+end_src
+
+  #+RESULTS: cc_data
+  :  [1] 8.83 7.50 8.00 7.33 7.50 9.67 7.08 7.83 7.17 8.00 7.67 6.83 8.17
+  : attr(,"na.action")
+  : [1] 14
+  : attr(,"class")
+  : [1] "omit"
+
+*** Plotting the data
+
+Density distribution plotting:
+- compute the averages for each results vector
+- determine min and max values for the plotting window
+- plot densities and averages and attach text labels
+
+  #+name: cc_density
+  #+begin_src R :file ./img/ccTest1DensitySP23.png :results graphics file
+    cc_avg_1 <- mean(cc_results_1);
+    cc_density_1 <- density(cc_results_1)
+
+    par(mfrow=c(1,2),pty='s')
+    hist(x=cc_results_1,
+         main="Histogram",
+         xlab="Points in [0,10]")
+
+    plot(x=cc_density_1, col="black",
+         main="Density estimate",
+         xlab=paste("N=",length(cc_results_1)))
+    abline(v=cc_avg_1, col="blue", lty=3)
+    text(x=8.3, y=0.5, adj=0,
+         col="blue",
+         label=paste("mean:",format(cc_avg_1,digits=3)));
+  #+end_src
+
+  #+RESULTS: cc_density
+  [[file:./img/ccTest1DensitySP23.png]]
