@@ -57,7 +57,7 @@ Density distribution plotting:
 
     plot(x=cc_density_1, col="black",
          main="Density estimate",
-         xlab=paste("N=",length(cc_results_1)))
+         xlab=paste("N=",length(cc_results_1),"participants"))
     abline(v=cc_avg_1, col="blue", lty=3)
     text(x=8.3, y=0.5, adj=0,
          col="blue",
