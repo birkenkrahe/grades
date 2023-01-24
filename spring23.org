@@ -2,7 +2,7 @@
 #+startup: overview hideblocks indent inlineimages
 * Introduction to programming CSC 100
 
-- This file contains visualization of test results for the
+- This section contains visualization of test results for the
   Introduction to Programming class CSC 100 in Spring 2023.
 
 - The  visualizations were  created with  the statistical  programming
@@ -46,7 +46,7 @@ Density distribution plotting:
 - plot densities and averages and attach text labels
 
   #+name: cc_density
-  #+begin_src R :file ./img/ccTest1DensitySP23.png :results output graphics file :exports both
+  #+begin_src R :file ./img/ccTest1SP23.png :results output graphics file :exports both
     cc_avg_1 <- mean(cc_results_1);
     cc_density_1 <- density(cc_results_1)
 
@@ -65,4 +65,72 @@ Density distribution plotting:
   #+end_src
 
   #+RESULTS: cc_density
-  [[file:./img/ccTest1DensitySP23.png]]
+  [[file:./img/ccTest1SP23.png]]
+
+
+* Introduction to advanced data science DSC 205
+
+- This section contains visualization of test results for the
+  Introduction to advanced data science class DSC 205 in Spring 2023.
+
+** Getting the data
+
+Save test results to data frames:
+- Save directory and individual files
+- ~paste~ and save as ~file~ string for ~read.csv~
+- import with ~read.csv~, ~header=TRUE~ and ~stringsAsFactors=TRUE~.
+
+  #+name: ds2_data
+  #+begin_src R :exports both :session *R* :results output
+    ds2_dir <- c("w:/My Drive/spring23/ds2/grades/")
+
+    ds2_test_1="2023-01-24T0752_Grades-DSC_205.csv"
+
+    file_1 <- paste(ds2_dir,ds2_test_1,sep="")
+
+    ds2_test_1 <- read.csv(file_1, header=TRUE, stringsAsFactors=TRUE)
+
+    ds2_results_1 <- na.omit(ds2_test_1$"Test.1..6557."[2:12])
+    ds2_results_1
+  #+end_src
+
+  #+RESULTS: ds2_data
+  : [1] 6.75 9.25 6.75 7.25 8.75 0.00 6.00 8.00 0.00
+  : attr(,"na.action")
+  : [1] 10 11
+  : attr(,"class")
+  : [1] "omit"
+
+** Plotting the data
+
+Density distribution plotting:
+- compute the averages for each results vector (without non-test
+  results, i.e. course participants who missed the test)
+- determine min and max values for the plotting window
+- plot densities and averages and attach text labels
+
+  #+name: ds2_density
+  #+begin_src R :file ./img/ds2Test1SP23.png :results output graphics file :exports both
+    ds2_avg_1 <- mean(ds2_results_1[-which(ds2_results_1==0)]);
+    ds2_density_1 <- density(ds2_results_1)
+
+    par(mfrow=c(1,2),pty='s')
+    hist(x=ds2_results_1,
+         main="Histogram",
+         xlab="Points in [0,10]")
+
+    plot(x=ds2_density_1, col="black",
+         main="Density estimate",
+         xlab=paste("N=",length(ds2_results_1)-2,"participants"))
+    abline(v=ds2_avg_1, col="blue", lty=3)
+    text(x=-1, y=0.15, adj=0,
+         col="blue",
+         label=paste("corrected\nmean:",format(ds2_avg_1,digits=3)));
+  #+end_src
+
+  #+RESULTS: ds2_density
+  [[file:./img/ds2Test1SP23.png]]
+
+* Machine learning DSC 305
+
+* Digital humanities CSC 105
