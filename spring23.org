@@ -1,7 +1,7 @@
 #+property: header-args:R :session *R* :results output :exports both
 #+startup: overview hideblocks indent inlineimages
-** Introduction to programming CSC 100
-*** Getting the data
+* Introduction to programming CSC 100
+** Getting the data
 
 Save test results to data frames:
 - Save directory and individual files
@@ -29,7 +29,7 @@ Save test results to data frames:
   : attr(,"class")
   : [1] "omit"
 
-*** Plotting the data
+** Plotting the data
 
 Density distribution plotting:
 - compute the averages for each results vector
