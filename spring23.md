@@ -1,14 +1,14 @@
 
 # Table of Contents
 
-1.  [Introduction to programming CSC 100](#org5478c27)
-2.  [Introduction to advanced data science DSC 205](#org37f2b43)
-3.  [Machine learning DSC 305](#org9cf64ee)
-4.  [Digital humanities CSC 105](#org1a19aaf)
+1.  [Introduction to programming CSC 100](#org860f14a)
+2.  [Introduction to advanced data science DSC 205](#orgc2cd9de)
+3.  [Machine learning DSC 305](#orge94ea80)
+4.  [Digital humanities CSC 105](#org36174a5)
 
 
 
-<a id="org5478c27"></a>
+<a id="org860f14a"></a>
 
 # Introduction to programming CSC 100
 
@@ -74,7 +74,7 @@ Density distribution plotting:
     ![img](./img/ccTest1SP23.png)
 
 
-<a id="org37f2b43"></a>
+<a id="orgc2cd9de"></a>
 
 # Introduction to advanced data science DSC 205
 
@@ -137,7 +137,7 @@ Density distribution plotting:
     ![img](./img/ds2Test1SP23.png)
 
 
-<a id="org9cf64ee"></a>
+<a id="orge94ea80"></a>
 
 # Machine learning DSC 305
 
@@ -192,7 +192,7 @@ Density distribution plotting:
         
         plot(x=ml_density_1, col="black",
              main="Density estimate",
-             xlab=paste("N=",length(ml_results_1)-1,"participants"))
+             xlab=paste("N=",length(ml_results_1),"participants"))
         abline(v=ml_avg_1, col="blue", lty=3)
         text(x=6, y=0.21, adj=0,
              col="blue",
@@ -205,7 +205,7 @@ Density distribution plotting:
     ![img](./img/mlTest1SP23.png)
 
 
-<a id="org1a19aaf"></a>
+<a id="org36174a5"></a>
 
 # Digital humanities CSC 105
 

@@ -190,7 +190,7 @@ Density distribution plotting:
 
     plot(x=ml_density_1, col="black",
          main="Density estimate",
-         xlab=paste("N=",length(ml_results_1)-1,"participants"))
+         xlab=paste("N=",length(ml_results_1),"participants"))
     abline(v=ml_avg_1, col="blue", lty=3)
     text(x=6, y=0.21, adj=0,
          col="blue",
