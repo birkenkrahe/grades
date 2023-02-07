@@ -1,14 +1,14 @@
 
 # Table of Contents
 
-1.  [Introduction to programming CSC 100](#org860f14a)
-2.  [Introduction to advanced data science DSC 205](#orgc2cd9de)
-3.  [Machine learning DSC 305](#orge94ea80)
-4.  [Digital humanities CSC 105](#org36174a5)
+1.  [Introduction to programming CSC 100](#org3c46d04)
+2.  [Introduction to advanced data science DSC 205](#org8e36aca)
+3.  [Machine learning DSC 305](#org2cefcbc)
+4.  [Digital humanities CSC 105](#org9289d00)
 
 
 
-<a id="org860f14a"></a>
+<a id="org3c46d04"></a>
 
 # Introduction to programming CSC 100
 
@@ -74,7 +74,7 @@ Density distribution plotting:
     ![img](./img/ccTest1SP23.png)
 
 
-<a id="orgc2cd9de"></a>
+<a id="org8e36aca"></a>
 
 # Introduction to advanced data science DSC 205
 
@@ -85,40 +85,60 @@ Density distribution plotting:
 
 ## Getting the data
 
-Save test results to data frames:
+-   Enter vector data manually
+-   Non-writing participants are registered as `NA`
+-   Tests carried different number of available points
 
--   Save directory and individual files
--   `paste` and save as `file` string for `read.csv`
--   import with `read.csv`, `header=TRUE` and `stringsAsFactors=TRUE`.
-    
-        ds2_dir <- c("w:/My Drive/spring23/ds2/grades/")
-        
-        ds2_test_1="2023-01-24T0752_Grades-DSC_205.csv"
-        
-        file_1 <- paste(ds2_dir,ds2_test_1,sep="")
-        
-        ds2_test_1 <- read.csv(file_1, header=TRUE, stringsAsFactors=TRUE)
-        
-        ds2_results_1 <- na.omit(ds2_test_1$"Test.1..6557."[2:12])
-        ds2_results_1
-    
-        [1] 6.75 9.25 6.75 7.25 8.75 0.00 6.00 8.00 0.00
-        attr(,"na.action")
-        [1] 10 11
-        attr(,"class")
-        [1] "omit"
+    ds2_results_1 <- c(6.75, 9.25, 6.75, 7.25, 8.75, 7, 6, 8, NA)
+    format(ds2_results_1,digits=3)
+    ds2_results_2 <- c(7, 9.5, 10, 8.5, 10, 4, NA, 9, 9)
+    format(ds2_results_2,digits=3)
+
+    [1] "6.75" "9.25" "6.75" "7.25" "8.75" "7.00" "6.00" "8.00" "  NA"
+    [1] " 7.0" " 9.5" "10.0" " 8.5" "10.0" " 4.0" "  NA" " 9.0" " 9.0"
 
 
-## Plotting the data
+## Plotting the data - Test 1
 
 Density distribution plotting:
 
--   compute the averages for each results vector (without non-test
-    results, i.e. course participants who missed the test)
+-   compute the averages for each results vector (without `NA`)
 -   determine min and max values for the plotting window
 -   plot densities and averages and attach text labels
+-   Color palette are Illinsky and Steele's recommended colors (except
+    white): red, green, yellow, blue, black, pink, cyan, gray, orange,
+    brown, purple
     
-        ds2_avg_1 <- mean(ds2_results_1[-which(ds2_results_1==0)]);
+        library(MASS)
+        ds2_avg_1 <- mean(ds2_results_1, na.rm=TRUE);
+        ds2_density_1 <- density(ds2_results_1, na.rm=TRUE)
+        ds2_avg_2 <- mean(ds2_results_2, na.rm=TRUE);
+        ds2_density_2 <- density(ds2_results_2, na.rm=TRUE)
+        plot(x=ds2_density_1, col="red", lwd=2,
+             main="Test results DSC 205 - Spring 2023",
+             xlab="Available points",
+             xaxt="n",yaxt="n",ylab="")
+        par(new=TRUE)
+        plot(x=ds2_density_2, col="green", lwd=2,
+             main="", xlab="", yaxt="n", ylab="")
+        abline(v=ds2_avg_1, col="red", lty=3, lwd=2)
+        abline(v=ds2_avg_2, col="green", lty=3, lwd=2)
+        legend("topleft",
+               legend=c(
+                 paste("Test 1 (",format(100*ds2_avg_1/12,digits=3),"%)"),
+                 paste("Test 2 (",format(100*ds2_avg_2/10,digits=3),"%)")),
+               lwd=2, col=c(test1="red",
+                            test2="green"),
+               bty="n")
+    
+    ![img](./img/ds2TestSP23.png)
+
+
+## Plotting the data - Test 2+
+
+-   Test results from test 2 are registered manually
+-   Participants who did not write the test are listed as `NA`
+-   ds2_avg_1 <- mean(ds2_results_1[-which(ds2_results_1==0)]);
         ds2_density_1 <- density(ds2_results_1)
         
         par(mfrow=c(1,2),pty='s')
@@ -134,10 +154,10 @@ Density distribution plotting:
              col="blue",
              label=paste("corrected\nmean:",format(ds2_avg_1,digits=3)));
     
-    ![img](./img/ds2Test1SP23.png)
+    ![img](./img/ds2Test2SP23.png)
 
 
-<a id="orge94ea80"></a>
+<a id="org2cefcbc"></a>
 
 # Machine learning DSC 305
 
@@ -197,15 +217,15 @@ Density distribution plotting:
         text(x=6, y=0.21, adj=0,
              col="blue",
              label=paste("mean:",
-        		 format(ml_avg_1,
-        			digits=3)))
+                         format(ml_avg_1,
+                                digits=3)))
         ##           format(100*ml_avg_1/15,digits=3),
         ##           "%"));
     
     ![img](./img/mlTest1SP23.png)
 
 
-<a id="org36174a5"></a>
+<a id="org9289d00"></a>
 
 # Digital humanities CSC 105
 
