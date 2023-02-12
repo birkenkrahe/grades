@@ -79,20 +79,22 @@ Density distribution plotting:
 
 - Enter vector data manually
 - Non-writing participants are registered as ~NA~
-- Tests carried different number of available points
+- Tests carried different number of available points 
 #+name: ds2_data
 #+begin_src R :exports both :session *R* :results output
-  ds2_results_1 <- c(6.75, 9.25, 6.75, 7.25, 8.75, 7, 6, 8, NA)
+  ## Test 1 had 12 points
+  ds2_results_1 <- c(6.75, 9.25, 6.75, 7.25, 8.75, 7, 6, 8, NA) * (10/12)
   format(ds2_results_1,digits=3)
-  ds2_results_2 <- c(7, 9.5, 10, 8.5, 10, 4, NA, 9, 9)
+  ## Test 2 had 10 points
+  ds2_results_2 <- c(7, 9.5, 10, 8.5, 10, 4, NA, 9, 9) 
   format(ds2_results_2,digits=3)
 #+end_src
 
 #+RESULTS: ds2_data
-: [1] "6.75" "9.25" "6.75" "7.25" "8.75" "7.00" "6.00" "8.00" "  NA"
+: [1] "5.62" "7.71" "5.62" "6.04" "7.29" "5.83" "5.00" "6.67" "  NA"
 : [1] " 7.0" " 9.5" "10.0" " 8.5" "10.0" " 4.0" "  NA" " 9.0" " 9.0"
 
-** Plotting the data - Test 1
+** Plotting the data
 
 Density distribution plotting:
 - compute the averages for each results vector (without ~NA~)
@@ -104,7 +106,6 @@ Density distribution plotting:
 
   #+name: ds2_density
   #+begin_src R :file ./img/ds2TestSP23.png :results output graphics file :exports both
-    library(MASS)
     ds2_avg_1 <- mean(ds2_results_1, na.rm=TRUE);
     ds2_density_1 <- density(ds2_results_1, na.rm=TRUE)
     ds2_avg_2 <- mean(ds2_results_2, na.rm=TRUE);
@@ -129,32 +130,6 @@ Density distribution plotting:
 
   #+RESULTS: ds2_density
   [[file:./img/ds2TestSP23.png]]
-
-** Plotting the data - Test 2+
-
-- Test results from test 2 are registered manually
-- Participants who did not write the test are listed as ~NA~
-- 
-
-  #+name: ds2_density_2
-  #+begin_src R :file ./img/ds2Test2SP23.png :results output graphics file :exports both
-    ds2_avg_1 <- mean(ds2_results_1[-which(ds2_results_1==0)]);
-    ds2_density_1 <- density(ds2_results_1)
-
-    par(mfrow=c(1,2),pty='s')
-    hist(x=ds2_results_1,
-         main="Histogram",
-         xlab="Points in [0,10]")
-
-    plot(x=ds2_density_1, col="black",
-         main="Density estimate",
-         xlab=paste("N=",length(ds2_results_1)-2,"participants"))
-    abline(v=ds2_avg_1, col="blue", lty=3)
-    text(x=-1, y=0.15, adj=0,
-         col="blue",
-         label=paste("corrected\nmean:",format(ds2_avg_1,digits=3)));
-  #+end_src
-
 
 * Machine learning DSC 305
 
