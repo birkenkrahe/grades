@@ -1,14 +1,14 @@
 
 # Table of Contents
 
-1.  [Introduction to programming CSC 100](#org3c46d04)
-2.  [Introduction to advanced data science DSC 205](#org8e36aca)
-3.  [Machine learning DSC 305](#org2cefcbc)
-4.  [Digital humanities CSC 105](#org9289d00)
+1.  [Introduction to programming CSC 100](#org46da0ec)
+2.  [Introduction to advanced data science DSC 205](#orgd5a641d)
+3.  [Machine learning DSC 305](#orgb34ec74)
+4.  [Digital humanities CSC 105](#orge6a58d8)
 
 
 
-<a id="org3c46d04"></a>
+<a id="org46da0ec"></a>
 
 # Introduction to programming CSC 100
 
@@ -74,7 +74,7 @@ Density distribution plotting:
     ![img](./img/ccTest1SP23.png)
 
 
-<a id="org8e36aca"></a>
+<a id="orgd5a641d"></a>
 
 # Introduction to advanced data science DSC 205
 
@@ -89,16 +89,18 @@ Density distribution plotting:
 -   Non-writing participants are registered as `NA`
 -   Tests carried different number of available points
 
-    ds2_results_1 <- c(6.75, 9.25, 6.75, 7.25, 8.75, 7, 6, 8, NA)
+    ## Test 1 had 12 points
+    ds2_results_1 <- c(6.75, 9.25, 6.75, 7.25, 8.75, 7, 6, 8, NA)/12 * 100
     format(ds2_results_1,digits=3)
-    ds2_results_2 <- c(7, 9.5, 10, 8.5, 10, 4, NA, 9, 9)
+    ## Test 2 had 10 points
+    ds2_results_2 <- c(7, 9.5, 10, 8.5, 10, 4, NA, 9, 9)/10 * 100
     format(ds2_results_2,digits=3)
 
-    [1] "6.75" "9.25" "6.75" "7.25" "8.75" "7.00" "6.00" "8.00" "  NA"
-    [1] " 7.0" " 9.5" "10.0" " 8.5" "10.0" " 4.0" "  NA" " 9.0" " 9.0"
+    [1] "56.2" "77.1" "56.2" "60.4" "72.9" "58.3" "50.0" "66.7" "  NA"
+    [1] " 70" " 95" "100" " 85" "100" " 40" " NA" " 90" " 90"
 
 
-## Plotting the data - Test 1
+## Plotting the data
 
 Density distribution plotting:
 
@@ -109,14 +111,13 @@ Density distribution plotting:
     white): red, green, yellow, blue, black, pink, cyan, gray, orange,
     brown, purple
     
-        library(MASS)
         ds2_avg_1 <- mean(ds2_results_1, na.rm=TRUE);
         ds2_density_1 <- density(ds2_results_1, na.rm=TRUE)
         ds2_avg_2 <- mean(ds2_results_2, na.rm=TRUE);
         ds2_density_2 <- density(ds2_results_2, na.rm=TRUE)
         plot(x=ds2_density_1, col="red", lwd=2,
              main="Test results DSC 205 - Spring 2023",
-             xlab="Available points",
+             xlab="Percentage (%)",
              xaxt="n",yaxt="n",ylab="")
         par(new=TRUE)
         plot(x=ds2_density_2, col="green", lwd=2,
@@ -125,8 +126,8 @@ Density distribution plotting:
         abline(v=ds2_avg_2, col="green", lty=3, lwd=2)
         legend("topleft",
                legend=c(
-                 paste("Test 1 (",format(100*ds2_avg_1/12,digits=3),"%)"),
-                 paste("Test 2 (",format(100*ds2_avg_2/10,digits=3),"%)")),
+                 paste("Test 1 (",format(ds2_avg_1,digits=3),"%)"),
+                 paste("Test 2 (",format(ds2_avg_2,digits=3),"%)")),
                lwd=2, col=c(test1="red",
                             test2="green"),
                bty="n")
@@ -134,30 +135,7 @@ Density distribution plotting:
     ![img](./img/ds2TestSP23.png)
 
 
-## Plotting the data - Test 2+
-
--   Test results from test 2 are registered manually
--   Participants who did not write the test are listed as `NA`
--   ds2_avg_1 <- mean(ds2_results_1[-which(ds2_results_1==0)]);
-        ds2_density_1 <- density(ds2_results_1)
-        
-        par(mfrow=c(1,2),pty='s')
-        hist(x=ds2_results_1,
-             main="Histogram",
-             xlab="Points in [0,10]")
-        
-        plot(x=ds2_density_1, col="black",
-             main="Density estimate",
-             xlab=paste("N=",length(ds2_results_1)-2,"participants"))
-        abline(v=ds2_avg_1, col="blue", lty=3)
-        text(x=-1, y=0.15, adj=0,
-             col="blue",
-             label=paste("corrected\nmean:",format(ds2_avg_1,digits=3)));
-    
-    ![img](./img/ds2Test2SP23.png)
-
-
-<a id="org2cefcbc"></a>
+<a id="orgb34ec74"></a>
 
 # Machine learning DSC 305
 
@@ -225,7 +203,7 @@ Density distribution plotting:
     ![img](./img/mlTest1SP23.png)
 
 
-<a id="org9289d00"></a>
+<a id="orge6a58d8"></a>
 
 # Digital humanities CSC 105
 
