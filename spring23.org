@@ -20,7 +20,7 @@ Save test results to data frames:
 - import with ~read.csv~, ~header=TRUE~ and ~stringsAsFactors=TRUE~.
 
   #+name: cc_data
-  #+begin_src R :exports both :session :results output
+  #+begin_src R
     cc_dir <- c("w:/My Drive/spring23/cc/grades/")
 
     cc_test_1="2023-01-23T2039_Grades-CSC_100.csv"
@@ -144,7 +144,7 @@ Save test results to data frames:
 - import with ~read.csv~, ~header=TRUE~ and ~stringsAsFactors=TRUE~.
 
   #+name: ml_data
-  #+begin_src R :exports both :session *R* :results output
+  #+begin_src R :exports both  :results output
     ml_dir <- c("w:/My Drive/spring23/ml/grades/")
 
     ml_test_1="2023-01-26T0908_Grades-DSC_305.csv"
