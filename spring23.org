@@ -1,5 +1,5 @@
 #+title: Spring 23 grades
-#+property: header-args:R :session *Grades* :results output :exports both
+#+property: header-args:R :session *R Grades* :results output :exports both
 #+startup: overview hideblocks indent inlineimages
 #+options: toc:1 num:1 ^:nil
 * Introduction to programming CSC 100
@@ -7,67 +7,128 @@
 - This section contains visualization of test results for the
   Introduction to Programming class CSC 100 in Spring 2023.
 
-- The  visualizations were  created with  the statistical  programming
-  language  R. If  you want  to know  more about  R or  even learn  it
-  (fast), check out this excellent  tutorial by Norm Matloff, "fasteR:
+- The visualizations were created with the statistical programming
+  language R. If you want to know more about R or even learn it
+  (fast), check out this excellent tutorial by Norm Matloff, "fasteR:
   Fast Lane to Learning R!" for non-computer scientists.
 
 ** Getting the data
 
-Save test results to data frames:
-- Save directory and individual files
-- ~paste~ and save as ~file~ string for ~read.csv~
-- import with ~read.csv~, ~header=TRUE~ and ~stringsAsFactors=TRUE~.
+- Enter vector data manually
+- Non-writing participants are registered as ~NA~
+- Tests carried different number of available points
 
-  #+name: cc_data
-  #+begin_src R
-    cc_dir <- c("w:/My Drive/spring23/cc/grades/")
+#+name: cc_data
+#+begin_src R
+  ## Test 1 had 12 points
+  cc_results_1 <- c(8.83,7.5,8,7.33,7.5,9.67,7.08,7.83,7.17,8,7.67,6.83,8.17)/10 * 100
+  format(cc_results_1,digits=3)
+  ## Test 2 had 10 points
+  cc_results_2 <- c(15.65,18.5,7.25,10.04,NA,18.75,17.08,16.08,14.48,17,14.48,13.36,16.35)/20 * 100
+  format(cc_results_2,digits=3)
+#+end_src
 
-    cc_test_1="2023-01-23T2039_Grades-CSC_100.csv"
-
-    file_1 <- paste(cc_dir,cc_test_1,sep="")
-
-    cc_test_1 <- read.csv(file_1, header=TRUE, stringsAsFactors=TRUE)
-
-    cc_results_1 <- na.omit(cc_test_1$"Test.1..6701."[2:15])
-    cc_results_1
-  #+end_src
-
-  #+RESULTS: cc_data
-  :  [1] 8.83 7.50 8.00 7.33 7.50 9.67 7.08 7.83 7.17 8.00 7.67 6.83 8.17
-  : attr(,"na.action")
-  : [1] 14
-  : attr(,"class")
-  : [1] "omit"
+#+RESULTS: cc_data
+:  [1] "88.3" "75.0" "80.0" "73.3" "75.0" "96.7" "70.8" "78.3" "71.7" "80.0"
+: [11] "76.7" "68.3" "81.7"
+:  [1] "78.2" "92.5" "36.2" "50.2" "  NA" "93.8" "85.4" "80.4" "72.4" "85.0"
+: [11] "72.4" "66.8" "81.8"
 
 ** Plotting the data
+- Compute the averages for each results vector (without ~NA~)
+- Determine min and max values for the plotting window
+- Plot densities and averages and attach text labels
+- Color palette are Illinsky and Steele's recommended colors (except
+  white): red, green, yellow, blue, black, pink, cyan, gray, orange,
+  brown, purple
 
-Density distribution plotting:
-- compute the averages for each results vector
-- determine min and max values for the plotting window
-- plot densities and averages and attach text labels
+*** Density distribution plotting
+#+name: cc_density
+#+begin_src R :file ./img/ccTestSP23.png :results output graphics file :exports both
+  cc_avg_1 <- mean(cc_results_1, na.rm=TRUE);
+  cc_density_1 <- density(cc_results_1, na.rm=TRUE)
+  cc_avg_2 <- mean(cc_results_2, na.rm=TRUE);
+  cc_density_2 <- density(cc_results_2, na.rm=TRUE)
+  plot(x=cc_density_1, col="red", lwd=2,
+       main="Test results CSC 100 - Spring 2023",
+       xlab="Percentage (%)",
+       xaxt="n",yaxt="n",ylab="")
+  par(new=TRUE)
+  plot(x=cc_density_2, col="green", lwd=2,
+       main="", xlab="", yaxt="n", ylab="")
+  abline(v=cc_avg_1, col="red", lty=3, lwd=2)
+  abline(v=cc_avg_2, col="green", lty=3, lwd=2)
+  legend("topleft",
+         legend=c(
+           paste("Test 1 (",format(cc_avg_1,digits=3),"%)"),
+           paste("Test 2 (",format(cc_avg_2,digits=3),"%)")),
+         lwd=2, col=c(test1="red",
+                      test2="green"),
+         bty="n")
+#+end_src
 
-  #+name: cc_density
-  #+begin_src R :file ./img/ccTest1SP23.png :results output graphics file :exports both
-    cc_avg_1 <- mean(cc_results_1);
-    cc_density_1 <- density(cc_results_1)
+#+RESULTS: cc_density
+[[file:./img/ccTestSP23.png]]
+*** Histogram
+#+begin_src R :file ./img/ccTestSP23hist.png :results output graphics file :exports both
+  par(mfrow=c(1,2), pty='s')
+  hist(cc_results_1,
+       col="red",
+       main="CSC 100/Sp23 - Test 1",
+       xlab="Percentage",
+       xlim=c(30,100))
+  abline(v=mean(cc_results_1,na.rm=TRUE),
+         lwd=2,
+         lty=2)
+  legend("topleft",
+         legend=c(
+           paste("\u03BC=",format(cc_avg_1,digits=3),"%")),
+         bty="n")
+  hist(cc_results_2,
+       col="green",
+       main="CSC 100/Sp23 - Test2",
+       xlab="Percentage",
+       xlim=c(30,100))
+  abline(v=mean(cc_results_2,na.rm=TRUE),
+         lwd=2,
+         lty=2)
+  legend("topleft",
+         legend=c(
+           paste("\u03BC=",format(cc_avg_2,digits=3),"%")),
+         bty="n")
+#+end_src
 
-    par(mfrow=c(1,2),pty='s')
-    hist(x=cc_results_1,
-         main="Histogram",
-         xlab="Points in [0,10]")
-
-    plot(x=cc_density_1, col="black",
-         main="Density estimate",
-         xlab=paste("N=",length(cc_results_1),"participants"))
-    abline(v=cc_avg_1, col="blue", lty=3)
-    text(x=8.3, y=0.5, adj=0,
-         col="blue",
-         label=paste("mean:",format(cc_avg_1,digits=3)));
+#+RESULTS:
+[[file:./img/ccTestSP23hist.png]]
+*** Boxplot
+- Align boxplot scales:
+  #+begin_src R
+    ylim <- range(c(
+      min(cc_results_1,cc_results_2,na.rm=TRUE),
+      max(cc_results_1,cc_results_2,na.rm=TRUE)))
+  #+end_src
+- Boxplot:
+  #+begin_src R :file ./img/ccTestSP23box.png :results output graphics file :exports both
+    par(mfrow=c(2,1))
+    boxplot(cc_results_1,
+            col="red",
+            horizontal=TRUE,
+            main="CSC 100 - Spring 2023\nTest 1",
+            xlab="Percentage",
+            ylim=ylim)
+    abline(v=mean(cc_results_1,na.rm=TRUE),lty=2)
+    boxplot(cc_results_2,
+            col="green",
+            horizontal=TRUE,
+            main="CSC 100 - Spring 2023\nTest 2",
+            xlab="Percentage",
+            ylim=ylim)
+    abline(v=mean(cc_results_2,na.rm=TRUE),
+           lty=2)
   #+end_src
 
-  #+RESULTS: cc_density
-  [[file:./img/ccTest1SP23.png]]
+  #+RESULTS:
+  [[file:./img/ccTestSP23box.png]]
 
 * Introduction to advanced data science DSC 205
 
@@ -79,7 +140,7 @@ Density distribution plotting:
 
 - Enter vector data manually
 - Non-writing participants are registered as ~NA~
-- Tests carried different number of available points 
+- Tests carried different number of available points
 #+name: ds2_data
 #+begin_src R
   ## Test 1 had 12 points
@@ -91,8 +152,7 @@ Density distribution plotting:
 #+end_src
 
 #+RESULTS: ds2_data
-: [1] "56.2" "77.1" "56.2" "60.4" "72.9" "58.3" "50.0" "66.7" "  NA"
-: [1] " 70" " 95" "100" " 85" "100" " 40" " NA" " 90" " 90"
+: [1] "75.8" "52.5" "60.0" "48.4" "69.2"
 
 ** Plotting the data
 
@@ -195,9 +255,57 @@ Density distribution plotting:
                             digits=3)))
     ##           format(100*ml_avg_1/15,digits=3),
     ##           "%"));
-                   #+end_src
+  #+end_src
 
   #+RESULTS: ml_density
   [[file:./img/mlTest1SP23.png]]
 
 * Digital humanities CSC 105
+
+- This section contains visualization of test results for the
+  "Digital Humanities - Text mining" class CSC 105 in
+  Spring 2023.
+
+** Getting the data
+
+- Enter vector data manually
+- Non-writing participants are registered as ~NA~
+- Tests carried different number of available points
+#+name: tm_data
+#+begin_src R
+  ## Test 1 had 20 points
+  tm_results_1 <- c(15.17,10.5,12,9.67,13.83)/20 * 100
+  format(tm_results_1,digits=3)
+#+end_src
+
+#+RESULTS: tm_data
+: [1] "75.8" "52.5" "60.0" "48.4" "69.2"
+
+** Plotting the data
+
+Density distribution plotting:
+- compute the averages for each results vector (without ~NA~)
+- determine min and max values for the plotting window
+- plot densities and averages and attach text labels
+- Color palette are Illinsky and Steele's recommended colors (except
+  white): red, green, yellow, blue, black, pink, cyan, gray, orange,
+  brown, purple
+
+  #+name: tm_density
+  #+begin_src R :file ./img/tmTestSP23.png :results output graphics file :exports both
+    tm_avg_1 <- mean(tm_results_1, na.rm=TRUE);
+    tm_density_1 <- density(tm_results_1, na.rm=TRUE)
+    plot(x=tm_density_1, col="red", lwd=2,
+         main="Test results CSC 105 - Spring 2023",
+         xlab="Percentage (%)",
+         ylab="",yaxt="n")
+    abline(v=tm_avg_1, col="red", lty=3, lwd=2)
+    legend("topleft",
+           legend=c(
+             paste("Test 1 (",format(tm_avg_1,digits=3),"%)")),
+           lwd=2, col=c(test1="red"),
+           bty="n")
+  #+end_src
+
+  #+RESULTS: tm_density
+  [[file:./img/tmTestSP23.png]]
