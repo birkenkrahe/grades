@@ -70,8 +70,8 @@
 #+RESULTS: cc_density
 [[file:./img/ccTestSP23.png]]
 *** Histogram
-#+begin_src R :file ./img/ccTestSP23hist.png :results output graphics file :exports both
-  par(mfrow=c(1,2), pty='s')
+#+name: cc_histogram
+#+begin_src R :results silent
   hist(cc_results_1,
        col="red",
        main="CSC 100/Sp23 - Test 1",
@@ -98,18 +98,24 @@
          bty="n")
 #+end_src
 
+#+begin_src R :file ./img/ccTestSP23hist.png :results output graphics file :exports both :noweb yes
+  par(mfrow=c(1,2), pty='s')
+  <<cc_histogram>>
+#+end_src
+
 #+RESULTS:
 [[file:./img/ccTestSP23hist.png]]
+
 *** Boxplot
 - Align boxplot scales:
-  #+begin_src R
+  #+begin_src R :results silent
     ylim <- range(c(
       min(cc_results_1,cc_results_2,na.rm=TRUE),
       max(cc_results_1,cc_results_2,na.rm=TRUE)))
   #+end_src
 - Boxplot:
-  #+begin_src R :file ./img/ccTestSP23box.png :results output graphics file :exports both
-    par(mfrow=c(2,1))
+  #+name: cc_boxplot
+  #+begin_src R :noweb yes :results silent
     boxplot(cc_results_1,
             col="red",
             horizontal=TRUE,
@@ -126,9 +132,23 @@
     abline(v=mean(cc_results_2,na.rm=TRUE),
            lty=2)
   #+end_src
+  #+begin_src R :file ./img/ccTestSP23box.png :results output graphics file :exports both :noweb yes
+    par(mfrow=c(2,1))
+    <<cc_boxplot>>
+  #+end_src
 
   #+RESULTS:
   [[file:./img/ccTestSP23box.png]]
+
+*** Boxplots and histograms
+#+begin_src R :results graphics file :file ccSP23test1_2.png :noweb yes
+  par(mfrow=c(2,2))
+  <<cc_histogram>>
+  <<cc_boxplot>>
+#+end_src
+
+#+RESULTS:
+[[file:ccSP23test1_2.png]]
 
 * Introduction to advanced data science DSC 205
 
