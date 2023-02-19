@@ -1,5 +1,5 @@
 #+title: Spring 23 grades
-#+property: header-args:R :session *R Grades* :results output :exports both
+#+property: header-args:R :session *R Grades* :results output :exports both :noweb yes
 #+startup: overview hideblocks indent inlineimages
 #+options: toc:1 num:1 ^:nil
 * Introduction to programming CSC 100
