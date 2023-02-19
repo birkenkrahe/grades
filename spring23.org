@@ -141,7 +141,7 @@
   [[file:./img/ccTestSP23box.png]]
 
 *** Boxplots and histograms
-#+begin_src R :results graphics file :file ./img/ccSP23test1_2.png :noweb yes :export both
+#+begin_src R :results graphics file :file ./img/ccSP23test1_2.png :noweb yes :exports both
   par(mfrow=c(2,2))
   <<cc_histogram>>
   <<cc_boxplot>>
