@@ -148,7 +148,7 @@
 #+end_src
 
 #+RESULTS:
-[[file:ccSP23test1_2.png]]
+[[file:./img/ccSP23test1_2.png]]
 
 * Introduction to advanced data science DSC 205
 
