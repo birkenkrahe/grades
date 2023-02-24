@@ -24,14 +24,14 @@
   cc_results_1 <- c(8.83,7.5,8,7.33,7.5,9.67,7.08,7.83,7.17,8,7.67,6.83,8.17)/10 * 100
   format(cc_results_1,digits=3)
   ## Test 2 had 10 points
-  cc_results_2 <- c(15.65,18.5,7.25,10.04,NA,18.75,17.08,16.08,14.48,17,14.48,13.36,16.35)/20 * 100
+  cc_results_2 <- c(15.65,18.5,7.25,10.04,16.75,18.75,17.08,16.08,14.48,17,14.48,13.36,16.35)/20 * 100
   format(cc_results_2,digits=3)
 #+end_src
 
 #+RESULTS: cc_data
 :  [1] "88.3" "75.0" "80.0" "73.3" "75.0" "96.7" "70.8" "78.3" "71.7" "80.0"
 : [11] "76.7" "68.3" "81.7"
-:  [1] "78.2" "92.5" "36.2" "50.2" "  NA" "93.8" "85.4" "80.4" "72.4" "85.0"
+:  [1] "78.2" "92.5" "36.2" "50.2" "83.8" "93.8" "85.4" "80.4" "72.4" "85.0"
 : [11] "72.4" "66.8" "81.8"
 
 ** Plotting the data
@@ -108,6 +108,7 @@
 
 *** Boxplot
 - Align boxplot scales:
+  #+name: align_scales
   #+begin_src R :results silent
     ylim <- range(c(
       min(cc_results_1,cc_results_2,na.rm=TRUE),
@@ -116,6 +117,7 @@
 - Boxplot:
   #+name: cc_boxplot
   #+begin_src R :noweb yes :results silent
+    <<align_scales>>
     boxplot(cc_results_1,
             col="red",
             horizontal=TRUE,
