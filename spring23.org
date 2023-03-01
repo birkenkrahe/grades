@@ -48,11 +48,12 @@
   brown, purple
 ***** Averages
 #+name: cc_averages
-#+begin_src R
+#+begin_src R :results silent
   cc_avg_1 <- mean(cc_results_1, na.rm=TRUE);
   cc_avg_2 <- mean(cc_results_2, na.rm=TRUE);
   cc_avg_3 <- mean(cc_results_3, na.rm=TRUE);
   #+end_src
+
 ***** Density distribution plotting
 #+name: cc_density
 #+begin_src R :file ./img/ccTestSP23.png :results output graphics file :exports both
@@ -161,7 +162,7 @@
             horizontal=TRUE,
             main="CSC 100 - Spring 2023\nTest 3",
             xlab="Percentage",
-            ylim=ylim)
+            ylim=ylim, outline=FALSE)
     abline(v=mean(cc_results_3,na.rm=TRUE),
            lty=2)
   #+end_src
