@@ -2,6 +2,7 @@
 #+property: header-args:R :session *R Grades* :results output :exports both :noweb yes
 #+startup: overview hideblocks indent inlineimages
 #+options: toc:1 num:1 ^:nil
+* TODO Turn these into looping ~function~ structures
 * Introduction to programming CSC 100
 ** Test result 
 - This section contains visualization of test results for the
