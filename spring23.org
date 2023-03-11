@@ -93,7 +93,7 @@ List of 1
 #+end_src
 **** Density estimates 2 x 2 windows
 #+name: cc_test_density_plot_2x2
-#+begin_src R :results graphics file :file ./img/ccTestsDensity2x2.png
+#+begin_src R :results graphics file :file ./img/ccTestsDensity2x2.png :exports both
   <<cc_test_density>>
   par(mfrow=c(2,2))
   for (i in 1:4) {
@@ -110,7 +110,7 @@ List of 1
 
 **** Density estimates in one window
 #+name: cc_density_plot
-#+begin_src R :results graphics file :file ./img/ccTestDensity.png
+#+begin_src R :results graphics file :file ./img/ccTestDensity.png :exports both
     <<cc_test_density>>
     farbe <- c("red", "green", "orange", "blue", "black",
                "pink", "cyan", "gray", "yellow", "brown", "purple")
