@@ -13,7 +13,7 @@
   (fast), check out this excellent tutorial by Norm Matloff, "fasteR:
   Fast Lane to Learning R!" for non-computer scientists.
 
-*** Getting the data
+*** Getting and normalizing the data
 - Enter vector data manually
 - Non-writing participants are registered as ~NA~
 - Tests carried different number of available points
@@ -33,33 +33,33 @@
   library(bruceR)
   <<normalize>>
   ## Test 1 had 12 points
-  cc_test_1 <- normalize(c(8.83,7.5,8,7.33,
-                           7.5,9.67,7.08,7.83,
-                           7.17,8,7.67,6.83,
-                           8.17))
+  cc_test_1 <- scaler(c(8.83,7.5,8,7.33,
+                        7.5,9.67,7.08,7.83,
+                        7.17,8,7.67,6.83,
+                        8.17))
   ## Test 2 had 10 points
-  cc_test_2 <- normalize(c(15.65,18.5,7.25,10.04,
-                           16.75,18.75,17.08,16.08,
-                           14.48,17,14.48,13.36,
-                           16.35))
+  cc_test_2 <- scaler(c(15.65,18.5,7.25,10.04,
+                        16.75,18.75,17.08,16.08,
+                        14.48,17,14.48,13.36,
+                        16.35))
   ## Test 3 had 13 points
-  cc_test_3 <- normalize(c(10.75,11.75,4.5,NA,
-                           NA,9,12.25,8.25,
-                           9.25,12.25,11.25,5.75,
-                           12.5))
+  cc_test_3 <- scaler(c(10.75,11.75,4.5,NA,
+                        NA,9,12.25,8.25,
+                        9.25,12.25,11.25,5.75,
+                        12.5))
   ## Test 4 had 10 points
-  cc_test_4 <- normalize(c(NA,8.5,4.5,NA,
-                           6.5,9.5,9,5,
-                           8,10,9,NA,
-                           7.5))
+  cc_test_4 <- scaler(c(NA,8.5,4.5,NA,
+                        6.5,9.5,9,5,
+                        8,10,9,NA,
+                        7.5))
   cc_tests <- data.frame("t1"=cc_test_1,
                          "t2"=cc_test_2,
                          "t3"=cc_test_3,
                          "t4"=cc_test_4)
   str(cc_tests)
   summary(cc_tests)
+  quantile(cc_tests,na.rm=TRUE)
   cc_results <- list("tests"=cc_tests)
-  str(cc_results)
 #+end_src
 
 #+RESULTS: cc_data
@@ -77,12 +77,8 @@
  3rd Qu.:0.4120   3rd Qu.:0.8478   3rd Qu.:0.9375   3rd Qu.:0.8182  
  Max.   :1.0000   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  
                                    NA's   :2        NA's   :3
-List of 1
- $ tests:'data.frame':	13 obs. of  4 variables:
-  ..$ t1: num [1:13] 0.704 0.236 0.412 0.176 0.236 ...
-  ..$ t2: num [1:13] 0.73 0.978 0 0.243 0.826 ...
-  ..$ t3: num [1:13] 0.781 0.906 0 NA NA ...
-  ..$ t4: num [1:13] NA 0.727 0 NA 0.364 ...
+       0%       25%       50%       75%      100% 
+0.0000000 0.2691917 0.6286957 0.8349185 1.0000000
 #+end_example
 
 *** Computing summaries
@@ -120,7 +116,7 @@ List of 1
 - Use computed averages for each results vector (without ~NA~)
 - Determine min and max values for the plotting window
 - Plot densities and averages and attach text labels
-- [ ] Color palette are Illinsky and Steele's recommended colors (except
+- Color palette are Illinsky and Steele's recommended colors (except
   white): red, green, yellow, blue, black, pink, cyan, gray, orange,
   brown, purple
 
@@ -168,9 +164,8 @@ List of 1
 [[file:./img/ccTestDensity.png]]
 
 **** Boxplots
-
 #+name: cc_boxplot
-#+begin_src R :results graphics file :file ccTestSP23box.png
+#+begin_src R :results graphics file :file ccTestBox.png
   <<cc_test_averages>>
   farbe <- c("red", "green", "orange", "blue", "black",
              "pink", "cyan", "gray", "yellow", "brown", "purple")
@@ -186,7 +181,7 @@ List of 1
 #+end_src
 
 #+RESULTS: cc_boxplot
-[[file:ccTestSP23box.png]]
+[[file:ccTestBox.png]]
 
 ** Mid-term grades
 #+attr_latex: :width 400px
