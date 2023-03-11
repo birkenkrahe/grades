@@ -3,7 +3,8 @@
 #+startup: overview hideblocks indent inlineimages
 #+options: toc:1 num:1 ^:nil
 * Introduction to programming CSC 100
-** Test result
+** Test results
+
 - This section contains visualization of test results for the
   Introduction to Programming class CSC 100 in Spring 2023.
 
@@ -133,7 +134,7 @@ List of 1
 #+RESULTS: cc_density_plot
 [[file:./img/ccTestDensity.png]]
 
-*** Histogram
+**** Histogram
 #+name: cc_histogram
 #+begin_src R :results silent
   <<cc_averages>>
@@ -183,7 +184,7 @@ List of 1
 #+RESULTS:
 [[file:./img/ccTestSP23hist.png]]
 
-*** Boxplot
+**** Boxplot
 - Align boxplot scales:
   #+name: align_scales
   #+begin_src R :results silent
@@ -227,7 +228,7 @@ List of 1
   #+RESULTS:
   [[file:./img/ccTestSP23box.png]]
 
-*** Boxplots and histograms
+**** Boxplots and histograms
 #+begin_src R :results graphics file :file ./img/ccSP23test1_2.png :noweb yes :exports both
   par(mfrow=c(2,2))
   <<cc_histogram>>
