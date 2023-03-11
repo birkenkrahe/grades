@@ -55,7 +55,8 @@ List of 1
   ..$ t4: num [1:13] NA 0.727 0 NA 0.364 ...
 #+end_example
 
-*** Computing averages
+*** Computing summaries
+**** Arithmetic average
 - Apply ~mean~ to ~cc_tests~ dataframe, remove ~NA~
 - Normalize to percent with ~format~
 - Save ~cc_tests_mean~ as ~numeric~
@@ -72,16 +73,7 @@ List of 1
 #+RESULTS: cc_averages
 : [1] 34.64 67.91 65.91 59.09
 
-*** Plotting the data
-
-- Use computed averages for each results vector (without ~NA~)
-- Determine min and max values for the plotting window
-- Plot densities and averages and attach text labels
-- [ ] Color palette are Illinsky and Steele's recommended colors (except
-  white): red, green, yellow, blue, black, pink, cyan, gray, orange,
-  brown, purple
-
-**** Density estimates
+**** Density estimate
 - Initialize empty ~list~ named ~cc_tests_density~
 - Prepare 2 x 2 graph window
 - Loop over tests and plot density estimates
@@ -92,6 +84,16 @@ List of 1
     cc_tests_density[[i]] <- density(cc_tests[[i]], na.rm=TRUE)
   }
 #+end_src
+
+*** Plotting the data
+
+- Use computed averages for each results vector (without ~NA~)
+- Determine min and max values for the plotting window
+- Plot densities and averages and attach text labels
+- [ ] Color palette are Illinsky and Steele's recommended colors (except
+  white): red, green, yellow, blue, black, pink, cyan, gray, orange,
+  brown, purple
+
 **** Density estimates 2 x 2 windows
 #+name: cc_test_density_plot_2x2
 #+begin_src R :results graphics file :file ./img/ccTestsDensity2x2.png :exports both
