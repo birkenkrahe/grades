@@ -2,9 +2,8 @@
 #+property: header-args:R :session *R Grades* :results output :exports both :noweb yes
 #+startup: overview hideblocks indent inlineimages
 #+options: toc:1 num:1 ^:nil
-* TODO Turn these into looping ~function~ structures
 * Introduction to programming CSC 100
-** Test result 
+** Test result
 - This section contains visualization of test results for the
   Introduction to Programming class CSC 100 in Spring 2023.
 
@@ -14,78 +13,131 @@
   Fast Lane to Learning R!" for non-computer scientists.
 
 *** Getting the data
-
 - Enter vector data manually
 - Non-writing participants are registered as ~NA~
 - Tests carried different number of available points
-
+- Rescaling with ~bruceR::scaler~ and default ~min=0~, ~max=1~
+- Put test results in ~cc_tests~ dataframe
+- Add ~cc_tests~ as ~tests~ to ~cc_results~ list
 #+name: cc_data
 #+begin_src R
+  library(bruceR)
   ## Test 1 had 12 points
-  cc_results_1 <- c(8.83,7.5,8,7.33,7.5,9.67,7.08,7.83,7.17,8,7.67,6.83,8.17)/10 * 100
-  format(cc_results_1,digits=3)
+  cc_test_1 <- scaler(c(8.83,7.5,8,7.33,7.5,9.67,7.08,7.83,7.17,8,7.67,6.83,8.17))
   ## Test 2 had 10 points
-  cc_results_2 <- c(15.65,18.5,7.25,10.04,16.75,18.75,17.08,16.08,14.48,17,14.48,13.36,16.35)/20 * 100
-  format(cc_results_2,digits=3)
-  ## Test 2 had 13 points
-  cc_results_3 <- c(10.75,11.75,4.5,NA,NA,9,12.25,8.25,9.25,12.25,11.25,5.75,12.5)/13 * 100
-  format(cc_results_3,digits=3)
-#+end_src
+  cc_test_2 <- scaler(c(15.65,18.5,7.25,10.04,16.75,18.75,17.08,16.08,14.48,17,14.48,13.36,16.35))
+  ## Test 3 had 13 points
+  cc_test_3 <- scaler(c(10.75,11.75,4.5,NA,NA,9,12.25,8.25,9.25,12.25,11.25,5.75,12.5))
+  ## Test 4 had 10 points
+  cc_test_4 <- scaler(c(NA,8.5,4.5,NA,6.5,9.5,9,5,8,10,9,NA,7.5))
+  cc_tests <- data.frame("t1"=cc_test_1,
+                         "t2"=cc_test_2,
+                         "t3"=cc_test_3,
+                         "t4"=cc_test_4)
+  str(cc_tests)
+  cc_results <- list("tests"=cc_tests)
+  str(cc_results)
+  #+end_src
 
 #+RESULTS: cc_data
-:  [1] "88.3" "75.0" "80.0" "73.3" "75.0" "96.7" "70.8" "78.3" "71.7" "80.0"
-: [11] "76.7" "68.3" "81.7"
-:  [1] "78.2" "92.5" "36.2" "50.2" "83.8" "93.8" "85.4" "80.4" "72.4" "85.0"
-: [11] "72.4" "66.8" "81.8"
-:  [1] "82.7" "90.4" "34.6" "  NA" "  NA" "69.2" "94.2" "63.5" "71.2" "94.2"
-: [11] "86.5" "44.2" "96.2"
+#+begin_example
+'data.frame':	13 obs. of  4 variables:
+ $ t1: num  0.704 0.236 0.412 0.176 0.236 ...
+ $ t2: num  0.73 0.978 0 0.243 0.826 ...
+ $ t3: num  0.781 0.906 0 NA NA ...
+ $ t4: num  NA 0.727 0 NA 0.364 ...
+List of 1
+ $ tests:'data.frame':	13 obs. of  4 variables:
+  ..$ t1: num [1:13] 0.704 0.236 0.412 0.176 0.236 ...
+  ..$ t2: num [1:13] 0.73 0.978 0 0.243 0.826 ...
+  ..$ t3: num [1:13] 0.781 0.906 0 NA NA ...
+  ..$ t4: num [1:13] NA 0.727 0 NA 0.364 ...
+#+end_example
+
+*** Computing averages
+- Apply ~mean~ to ~cc_tests~ dataframe, remove ~NA~
+- Normalize to percent with ~format~
+- Save ~cc_tests_mean~ as ~numeric~
+#+name: cc_averages
+#+begin_src R
+  cc_tests_mean <- format(sapply(X=cc_tests,
+                                FUN=mean,
+                                na.rm=TRUE)*100,
+                         digits=4)
+  cc_tests_mean <- as.numeric(cc_tests_mean)
+  cc_tests_mean
+#+end_src
+
+#+RESULTS: cc_averages
+: [1] 34.64 67.91 65.91 59.09
 
 *** Plotting the data
-- Compute the averages for each results vector (without ~NA~)
+
+- Use computed averages for each results vector (without ~NA~)
 - Determine min and max values for the plotting window
 - Plot densities and averages and attach text labels
 - Color palette are Illinsky and Steele's recommended colors (except
   white): red, green, yellow, blue, black, pink, cyan, gray, orange,
   brown, purple
-***** Averages
-#+name: cc_averages
-#+begin_src R :results silent
-  cc_avg_1 <- mean(cc_results_1, na.rm=TRUE);
-  cc_avg_2 <- mean(cc_results_2, na.rm=TRUE);
-  cc_avg_3 <- mean(cc_results_3, na.rm=TRUE);
-  #+end_src
 
-***** Density distribution plotting
-#+name: cc_density
-#+begin_src R :file ./img/ccTestSP23.png :results output graphics file :exports both
-  <<cc_averages>>
-  cc_density_1 <- density(cc_results_1, na.rm=TRUE)
-  cc_density_2 <- density(cc_results_2, na.rm=TRUE)
-  plot(x=cc_density_1, col="red", lwd=2,
-       main="Test results CSC 100 - Spring 2023",
-       xlab="Percentage (%)",
-       xaxt="n",yaxt="n",ylab="")
-  par(new=TRUE)
-  plot(x=cc_density_2, col="green", lwd=2,
-       main="", xlab="", yaxt="n", ylab="")
-  abline(v=cc_avg_1, col="red", lty=3, lwd=2)
-  abline(v=cc_avg_2, col="green", lty=3, lwd=2)
-  legend("topleft",
-         legend=c(
-           paste("Test 1 (",format(cc_avg_1,digits=3),"%)"),
-           paste("Test 2 (",format(cc_avg_2,digits=3),"%)")),
-         lwd=2, col=c(test1="red",
-                      test2="green"),
-         bty="n")
+**** Density estimates
+- Initialize empty ~list~ named ~cc_tests_density~
+- Prepare 2 x 2 graph window
+- Loop over tests and plot density estimates
+#+name: cc_tests_density
+#+begin_src R :results silent
+  cc_tests_density <- list()
+  for (i in 1:4) {
+    cc_tests_density[[i]] <- density(cc_tests[[i]], na.rm=TRUE)
+  }
+#+end_src
+**** Density estimates 2 x 2 windows
+#+name: cc_test_density_plot_2x2
+#+begin_src R :results graphics file :file ./img/ccTestsDensity2x2.png
+  <<cc_test_density>>
+  par(mfrow=c(2,2))
+  for (i in 1:4) {
+    plot(cc_tests_density[[i]],
+         main=paste("Density estimate CC Test ",i))
+  }
 #+end_src
 
-#+RESULTS: cc_density
-[[file:./img/ccTestSP23.png]]
-***** Histogram
+#+RESULTS:
+[[file:./img/ccTestsDensity2x2.png]]
+
+**** Density estimates in one window
+#+name: cc_density_plot
+#+begin_src R :results graphics file :file ./img/ccTestDensity.png
+    <<cc_test_density>>
+    farbe <- c("red", "green", "orange", "blue", "black",
+               "pink", "cyan", "gray", "yellow", "brown", "purple")
+    avgs <- rep(NA,4)  ## init vector for legend text
+    par(mfrow=c(1,1))  ## 1 x 1 graph window
+    for (i in 1:ncol(cc_tests)) {
+      plot(cc_tests_density[[i]],  
+           col=farbe[i], lwd=2,
+           xaxt="n",yaxt="n",xlab="",ylab="",
+           main=paste("Density estimate CSC 100 Test 1-",ncol(cc_tests)))
+      abline(v=cc_tests_mean[i]/100,   # display averages
+             col=farbe[i], lty=3, lwd=2)
+      avgs[i] <- c(paste("Test",i,":",  # define legend line
+                         format(cc_tests_mean[i],digits=3),
+                         "%"))
+      par(new=TRUE)
+    }
+    legend("topleft", legend=avgs, bty="n", lwd=2, col=farbe)
+    axis(1, at=seq(from=-0.5,1.5,by=0.5),  # draw axis labels 
+         labels=c("bad", "not good", "ok", "good", "excellent")) 
+#+end_src
+
+#+RESULTS: cc_density_plot
+[[file:./img/ccTestDensity.png]]
+
+*** Histogram
 #+name: cc_histogram
 #+begin_src R :results silent
   <<cc_averages>>
-  hist(cc_results_1,
+  hist(cc_results_1*100,
        col="red",
        main="CSC 100/Sp23 - Test 1",
        xlab="Percentage",
@@ -93,11 +145,11 @@
   abline(v=mean(cc_results_1,na.rm=TRUE),
          lwd=2,
          lty=2)
-  legend("topleft",
+  legend("topright",
          legend=c(
            paste("\u03BC=",format(cc_avg_1,digits=3),"%")),
          bty="n")
-  hist(cc_results_2,
+  hist(cc_results_2*100,
        col="green",
        main="CSC 100/Sp23 - Test 2",
        xlab="Percentage",
@@ -131,7 +183,7 @@
 #+RESULTS:
 [[file:./img/ccTestSP23hist.png]]
 
-***** Boxplot
+*** Boxplot
 - Align boxplot scales:
   #+name: align_scales
   #+begin_src R :results silent
@@ -175,7 +227,7 @@
   #+RESULTS:
   [[file:./img/ccTestSP23box.png]]
 
-***** Boxplots and histograms
+*** Boxplots and histograms
 #+begin_src R :results graphics file :file ./img/ccSP23test1_2.png :noweb yes :exports both
   par(mfrow=c(2,2))
   <<cc_histogram>>
