@@ -20,7 +20,7 @@
 - Put test results in ~cc_tests~ dataframe
 - Add ~cc_tests~ as ~tests~ to ~cc_results~ list
 #+name: cc_data
-#+begin_src R
+#+begin_src R :exports both
   library(bruceR)
   ## Test 1 had 12 points
   cc_test_1 <- scaler(c(8.83,7.5,8,7.33,7.5,9.67,7.08,7.83,7.17,8,7.67,6.83,8.17))
@@ -59,7 +59,7 @@ List of 1
 - Normalize to percent with ~format~
 - Save ~cc_tests_mean~ as ~numeric~
 #+name: cc_averages
-#+begin_src R
+#+begin_src R :exports both
   cc_tests_mean <- format(sapply(X=cc_tests,
                                 FUN=mean,
                                 na.rm=TRUE)*100,
@@ -103,9 +103,6 @@ List of 1
 #+end_src
 
 #+RESULTS: cc_test_density_plot_2x2
-[[file:./img/ccTestsDensity2x2.png]]
-
-#+RESULTS:
 [[file:./img/ccTestsDensity2x2.png]]
 
 **** Density estimates in one window
