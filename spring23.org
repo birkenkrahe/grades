@@ -165,7 +165,7 @@
 
 **** Boxplots
 #+name: cc_boxplot
-#+begin_src R :results graphics file :file ccTestBox.png
+#+begin_src R :results graphics file :file ccTestBox.png  :exports both
   <<cc_test_averages>>
   farbe <- c("red", "green", "orange", "blue", "black",
              "pink", "cyan", "gray", "yellow", "brown", "purple")
