@@ -64,13 +64,24 @@
   #+begin_src R :results graphics file :file ./img/pytest1hist.png
   hist(test_1)
   #+end_src
+
+  #+RESULTS:
+  [[file:./img/pytest1hist.png]]
+
 - Boxplot only:
 #+begin_src R :results graphics file :file ./img/pytest1box.png
   boxplot(test_1,horizontal=TRUE)
 #+end_src
+
+#+RESULTS:
+[[file:./img/pytest1box.png]]
+
 - Histogram + Boxplot:
   #+begin_src R :results graphics file :file ./img/pytest1.png
   par(mfrow=c(1,2),pty='s')
   hist(test_1)
   boxplot(test_1,horizontal=TRUE,main="Boxplot of test_1")
   #+end_src
+
+  #+RESULTS:
+  [[file:./img/pytest1.png]]
