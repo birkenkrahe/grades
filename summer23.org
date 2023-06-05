@@ -1,0 +1,76 @@
+#+title: Summer 23 grades
+#+property: header-args:R :session *R Grades* :results output :exports both :noweb yes
+#+property: header-args:python :session *Python* :results output :exports both :noweb yes
+#+startup: overview hideblocks indent inlineimages
+#+options: toc:1 num:1 ^:nil
+* Introduction to programming in Python
+
+** Test 1 (Python - 15 lines)
+- Results as a list:
+  #+begin_src python
+    test_1 = [20.5,20,23,20.67,22.17,17.67]
+    print(test_1)
+  #+end_src
+- Import modules:
+  #+begin_src python :results silent
+    import matplotlib.pyplot as plt
+    import pandas as pd
+  #+end_src
+- Convert list the pandas ~Series~ for stats computation:
+  #+begin_src python :results silent
+    data = pd.Series(test_1)
+  #+end_src
+- Create a histogram in Python:
+  #+begin_src python :results graphics file :file ./img/csc109_test_1_hist.png
+    plt.figure(figsize=10,5))
+    plt.subplot(1, 2, 1)
+    plt.hist(data, bins=5, color='skyblue', edgecolor='black')
+    plt.title('Histogram of Test Grades')
+    plt.xlabel('Grade')
+    plt.ylabel('Frequency')
+  #+end_src
+- Boxplot in Python:
+  #+begin_src python
+    plt.subplot(1, 2, 2)
+    plt.boxplot(data)
+    plt.title('Boxplot of Test Grades')
+
+    plt.tight_layout()
+    plt.show()
+  #+end_src
+- Stats summary in Python:
+  #+begin_src python
+    print(data.describe())
+  #+end_src
+
+  #+RESULTS:
+  : count     6.000000
+  : mean     20.668333
+  : std       1.852387
+  : min      17.670000
+  : 25%      20.125000
+  : 50%      20.585000
+  : 75%      21.795000
+  : max      23.000000
+  : dtype: float64
+
+** Test 2 (R - 5 lines)
+- Grades
+  #+name: test_1
+  #+begin_src R
+  test_1 = c(20.5,20,23,20.67,22.17,17.67)
+  #+end_src
+- Histogram only:
+  #+begin_src R :results graphics file :file ./img/pytest1hist.png
+  hist(test_1)
+  #+end_src
+- Boxplot only:
+#+begin_src R :results graphics file :file ./img/pytest1box.png
+  boxplot(test_1,horizontal=TRUE)
+#+end_src
+- Histogram + Boxplot:
+  #+begin_src R :results graphics file :file ./img/pytest1.png
+  par(mfrow=c(1,2),pty='s')
+  hist(test_1)
+  boxplot(test_1,horizontal=TRUE,main="Boxplot of test_1")
+  #+end_src
